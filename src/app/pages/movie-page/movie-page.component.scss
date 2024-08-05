@@ -1,0 +1,102 @@
+@import "../../../vars.scss";
+
+header {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: $purple-header;
+  color: #fff;
+  height: 56px;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  .logo {
+    flex-shrink: 0;
+    img {
+      height: 24px;
+      max-width: 100%;
+      width: auto;
+    }
+  }
+}
+
+.background {
+  background-color: $background-purple;
+  height: 470px;
+  width: 100%;
+  position: relative;
+}
+
+.film-container {
+  display: flex; /* Ativa o Flexbox para o contêiner interno */
+  align-items: flex-start; /* Alinha a imagem e o título no topo */
+  position: absolute;
+  left: 100px;
+  top: 50px;
+}
+
+.film-cover {
+  margin-right: 20px; /* Espaço entre a imagem e o título */
+}
+
+.film-cover img {
+  display: block; /* Remove qualquer espaço extra abaixo da imagem */
+  width: 340px; /* Ajuste conforme necessário */
+  height: 467px; /* Mantém a proporção da imagem */
+}
+
+.film-title h1 {
+  font-size: 24px; /* Tamanho da fonte para o título */
+  color: $synopsis-text; /* Cor do texto do título */
+  margin: 0; /* Remove a margem padrão do título */
+  padding-top: 10px; /* Ajuste conforme necessário para subir o título */
+}
+
+.film-title h2 {
+  font-size: 15px; /* Tamanho da fonte para o subtítulo */
+  color:  $synopsis-text; /* Cor do texto do subtítulo */
+  margin: 5px 0 0 0; /* Ajusta as margens para o subtítulo */
+  font-weight: normal; /* Remove o negrito do subtítulo */
+}
+
+
+.user-rating {
+  width: 50px;  /* Ajuste a largura conforme necessário */
+  height: 80px; /* Ajuste a altura conforme necessário */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+
+
+.user-rating {
+  /* Fundo preto transparente */
+  background-color: rgba(0, 0, 0, 0.3); /* Preto com 50% de opacidade */
+
+  /* Ajusta o tamanho e o posicionamento do círculo, se necessário */
+
+  padding: 5px; /* Espaçamento interno opcional para ajustar o posicionamento */
+  border-radius: 50%; /* Torna o fundo redondo, se necessário */
+  width: 50px;
+    height: 50px;
+    margin-top: 15px;
+}
+
+
+.rating-text {
+  margin-left: 70px; /* Espaço entre o círculo e o texto */
+  margin-top: -40px;
+}
+
+.rating-text p {
+  font-size: 16px; /* Tamanho da fonte do texto */
+  color: $synopsis-text; /* Cor do texto */
+  margin: 0; /* Remove margens padrão */
+  font-weight: normal; /* Remove o negrito do subtítulo */
+}
+
+
+
