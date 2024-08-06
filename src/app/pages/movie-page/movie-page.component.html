@@ -1,22 +1,24 @@
 <header class="header">
   <div class="logo">
-    <img src="../../../assets/images/logo.tmdb.png" alt="Logotipo">
-
+    <img src="../../../assets/images/logo.tmdb.png" alt="Logotipo" />
   </div>
 </header>
 <div class="background">
   <div class="film-container">
     <div class="film-cover">
-      <img src="../../../assets/images/filme-topo.png" alt="film-cover">
+      <img src="../../../assets/images/filme-topo.png" alt="film-cover" />
     </div>
     <div class="film-title">
       <h1>Deadpool (2016)</h1>
-      <h2>16 anos  • 11/02/2016 (BR)  •  Ação, Aventura, Comédia, Ficção científica • 1h 47m</h2>
+      <h2>
+        16 anos • 11/02/2016 (BR) • Ação, Aventura, Comédia, Ficção científica •
+        1h 47m
+      </h2>
       <div class="user-rating">
         <circle-progress
-          [percent]="50"
-          [radius]="25"
-          [outerStrokeWidth]="5"
+          [percent]="80"
+          [radius]="19"
+          [outerStrokeWidth]="4"
           [innerStrokeWidth]="4"
           [outerStrokeColor]="'#14FF00'"
           [innerStrokeColor]="' #rgba'"
@@ -24,14 +26,58 @@
           [animationDuration]="300"
           [titleColor]="'#14FF00'"
           [subtitleColor]="'#14FF00'"
-          [titleFontSize]="'13px'"
-          [subtitleFontSize]="'8px'">
+          [titleFontSize]="'10px'"
+          [subtitleFontSize]="'6px'"
+        >
         </circle-progress>
-
-      </div>  <div class="rating-text">
-          <p>Avaliação dos usuários</p> <!-- Texto ao lado do círculo -->
+      </div>
+      <div class="rating-text">
+        <p>Avaliação dos usuários</p>
+      </div>
+      <div class="synopsis">
+        <h2>Sinopse</h2>
+        <p>
+          Baseado no anti-herói não convencional da Marvel Comics, Deadpool
+          conta a história da origem do ex-agente das Forças Especiais que se
+          tornou o mercenário Wade Wilson. Depois de ser submetido a um
+          desonesto experimento que o deixa com poderes de cura acelerada, Wade
+          adota o alter ego de Deadpool. Armado com suas novas habilidades e um
+          senso de humor negro e distorcido, Deadpool persegue o homem que quase
+          destruiu sua vida.
+        </p>
+      </div>
+      <div class="subtitles-container">
+        <div class="subtitles-row top-row">
+          <div class="item">
+            <p>nome</p>
+            <h3>Personagens</h3>
+          </div>
+          <div class="subtitles-row top-row-two">
+            <div class="item">
+              <p>nome</p>
+              <h3>Personagens</h3>
+            </div>
+          </div>
+          <div class="subtitles-row top-row-three">
+            <div class="item">
+              <p>nome</p>
+              <h3>Diretor</h3>
+            </div>
+          </div>
         </div>
-
+        <div class="subtitles-row bottom-row">
+          <div class="item">
+            <p>nome</p>
+            <h3>Roteiro</h3>
+          </div>
+          <div class="subtitles-row bottom-row-two">
+            <div class="item">
+              <p>nome</p>
+              <h3>Roteiro</h3>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
