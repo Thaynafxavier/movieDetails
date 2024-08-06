@@ -23,80 +23,146 @@ header {
 
 .background {
   background-color: $background-purple;
-  height: 470px;
+  height: 550px;
   width: 100%;
   position: relative;
 }
 
 .film-container {
-  display: flex; /* Ativa o Flexbox para o contêiner interno */
-  align-items: flex-start; /* Alinha a imagem e o título no topo */
+  display: flex;
+  align-items: flex-start;
   position: absolute;
   left: 100px;
   top: 50px;
 }
 
 .film-cover {
-  margin-right: 20px; /* Espaço entre a imagem e o título */
+  margin-right: 20px;
 }
 
 .film-cover img {
-  display: block; /* Remove qualquer espaço extra abaixo da imagem */
-  width: 340px; /* Ajuste conforme necessário */
-  height: 467px; /* Mantém a proporção da imagem */
+  display: block;
+  width: 380px;
+  height: 560px;
 }
 
 .film-title h1 {
-  font-size: 24px; /* Tamanho da fonte para o título */
-  color: $synopsis-text; /* Cor do texto do título */
-  margin: 0; /* Remove a margem padrão do título */
-  padding-top: 10px; /* Ajuste conforme necessário para subir o título */
+  font-size: 24px;
+  color: $synopsis-text;
+  margin: 0;
+  padding-top: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .film-title h2 {
-  font-size: 15px; /* Tamanho da fonte para o subtítulo */
-  color:  $synopsis-text; /* Cor do texto do subtítulo */
-  margin: 5px 0 0 0; /* Ajusta as margens para o subtítulo */
-  font-weight: normal; /* Remove o negrito do subtítulo */
+  font-size: 15px;
+  color: $synopsis-text;
+  margin: 5px 0 0 0;
+  font-weight: normal;
 }
 
-
 .user-rating {
-  width: 50px;  /* Ajuste a largura conforme necessário */
-  height: 80px; /* Ajuste a altura conforme necessário */
+  width: 50px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
-
 }
-
-
 
 .user-rating {
-  /* Fundo preto transparente */
-  background-color: rgba(0, 0, 0, 0.3); /* Preto com 50% de opacidade */
+  background-color: rgba(0, 0, 0, 0.3);
 
-  /* Ajusta o tamanho e o posicionamento do círculo, se necessário */
-
-  padding: 5px; /* Espaçamento interno opcional para ajustar o posicionamento */
-  border-radius: 50%; /* Torna o fundo redondo, se necessário */
-  width: 50px;
-    height: 50px;
-    margin-top: 15px;
+  padding: 2px;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  margin-top: 15px;
 }
 
-
 .rating-text {
-  margin-left: 70px; /* Espaço entre o círculo e o texto */
-  margin-top: -40px;
+  margin-left: 60px;
+  margin-top: -30px;
 }
 
 .rating-text p {
-  font-size: 16px; /* Tamanho da fonte do texto */
-  color: $synopsis-text; /* Cor do texto */
-  margin: 0; /* Remove margens padrão */
-  font-weight: normal; /* Remove o negrito do subtítulo */
+  font-size: 16px;
+  color: $synopsis-text;
+  margin: 0;
+  font-weight: normal;
 }
 
+.synopsis {
+  margin-top: 35px;
+}
 
+.synopsis h2 {
+  font-size: 20px;
+  color: $synopsis-text;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
 
+.synopsis p {
+  font-size: 13px;
+  color: $description-synopsis;
+  margin-bottom: 20px;
+  line-height: 1.8;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  width: 580px;
+}
+
+.subtitles-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 50px;
+}
+
+.subtitles-row {
+  display: flex;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: normal;
+  margin-right: 10px;
+}
+
+.top-row {
+  margin-bottom: 20px;
+  margin-left: 1px;
+}
+
+.bottom-row {
+  margin-top: 10px;
+  margin-left: 1px;
+}
+
+.subtitles-row p {
+  font-size: 15px;
+  color: $synopsis-text;
+  margin: 0;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.subtitles-row h3 {
+  font-size: 12px;
+  color: $synopsis-text;
+  margin: 0;
+  font-weight: normal;
+}
+
+.top-row-two {
+  margin-left: 88px;
+}
+
+.top-row-three {
+  margin-left: 88px;
+}
+
+.bottom-row-two {
+  margin-left: 120px;
+}
