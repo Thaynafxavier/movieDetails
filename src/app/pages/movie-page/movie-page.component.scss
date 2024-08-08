@@ -23,7 +23,7 @@ header {
 
 .background {
   background-color: $background-purple;
-  height: 550px;
+  height: 720px;
   width: 100%;
   position: relative;
 }
@@ -42,12 +42,12 @@ header {
 
 .film-cover img {
   display: block;
-  width: 380px;
-  height: 560px;
+  width: 500px;
+  height: 720px;
 }
 
 .film-title h1 {
-  font-size: 24px;
+  font-size: 40px;
   color: $synopsis-text;
   margin: 0;
   padding-top: 10px;
@@ -55,7 +55,7 @@ header {
 }
 
 .film-title h2 {
-  font-size: 15px;
+  font-size: 20px;
   color: $synopsis-text;
   margin: 5px 0 0 0;
   font-weight: normal;
@@ -73,19 +73,20 @@ header {
   background-color: rgba(0, 0, 0, 0.3);
 
   padding: 2px;
-  border-radius: 50%;
-  width: 38px;
-  height: 38px;
-  margin-top: 15px;
+  border-radius: 80%;
+  width: 60px;
+  height: 60px;
+  margin-top: 30px;
+  margin-left: 1px;
 }
 
 .rating-text {
-  margin-left: 60px;
-  margin-top: -30px;
+  margin-left: 80px;
+  margin-top: -40px;
 }
 
 .rating-text p {
-  font-size: 16px;
+  font-size: 18px;
   color: $synopsis-text;
   margin: 0;
   font-weight: normal;
@@ -96,20 +97,20 @@ header {
 }
 
 .synopsis h2 {
-  font-size: 20px;
+  font-size: 30px;
   color: $synopsis-text;
   margin-bottom: 10px;
   font-weight: bold;
 }
 
 .synopsis p {
-  font-size: 13px;
+  font-size: 20px;
   color: $description-synopsis;
   margin-bottom: 20px;
   line-height: 1.8;
   word-wrap: break-word;
   white-space: pre-wrap;
-  width: 580px;
+  width: 720px;
 }
 
 .subtitles-container {
@@ -141,7 +142,7 @@ header {
 }
 
 .subtitles-row p {
-  font-size: 15px;
+  font-size: 20px;
   color: $synopsis-text;
   margin: 0;
   margin-bottom: 5px;
@@ -156,7 +157,7 @@ header {
 }
 
 .top-row-two {
-  margin-left: 88px;
+  margin-left: 120px;
 }
 
 .top-row-three {
@@ -164,5 +165,139 @@ header {
 }
 
 .bottom-row-two {
-  margin-left: 120px;
+  margin-left: 140px;
+}
+
+.background-secondary {
+  background-color: #f0f0f0;
+  padding: 20px;
+
+  .film-carousel {
+    margin-top: 20px;
+
+    h4 {
+      font-size: 24px;
+      color: $black-text;
+      margin-bottom: 15px;
+      margin-top: 100px;
+      margin-left: 100px;
+    }
+
+    .carousel-wrapper {
+      overflow-x: auto;
+      white-space: nowrap;
+      width: 80%;
+      margin: 0 auto;
+      padding: 10px 0;
+      transform: translateX(-5%);
+
+      ::-webkit-scrollbar {
+        height: 12px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: #dddddd;
+        border-radius: 12px;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: #adadad;
+        border-radius: 12px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: #888888;
+      }
+
+      scrollbar-width: thin;
+      scrollbar-color: #adadad #dddddd;
+    }
+
+    .carousel {
+      display: inline-flex;
+      gap: 10px;
+      justify-content: center;
+      width: 100%;
+
+      .carousel-item {
+        background-color: #ffffff;
+        border-radius: 8px;
+        width: 191px;
+        height: 336px;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      img {
+        width: 175px;
+        height: 222px;
+        object-fit: cover;
+      }
+
+      .carousel-content {
+        text-align: center;
+        margin-top: 10px;
+
+        .carousel-title {
+          font-size: 16px;
+          color: $black-text;
+          margin-bottom: 5px;
+        }
+
+        .carousel-subtitle {
+          font-size: 14px;
+          color: #666666;
+        }
+      }
+    }
+  }
+
+  .section-trailer {
+    margin-left: 100px;
+    margin-top: 20px;
+    margin-top: 20px;
+    font-size: 28px;
+    color: $black-text;
+  }
+
+  .section-recommendations {
+    margin-left: 5px;
+    margin-top: 20px;
+    margin-top: 20px;
+    font-size: 35px;
+    color: $black-text;
+  }
+
+  .recommendations-carousel {
+    display: flex;
+    gap: 50px;
+  }
+
+  .recommendation-item {
+    img {
+      width: 175px;
+      height: 280px;
+      object-fit: cover;
+      border-radius: 5px;
+      margin-top: -30px;
+    }
+
+    .recommendation-content {
+      margin-top: 10px;
+
+      .recommendation-title {
+        font-size: 16px;
+        color: $black-text;
+      }
+
+      .recommendation-subtitle {
+        font-size: 14px;
+        color: #666666;
+        margin-top: -20px;
+      }
+    }
+  }
 }
