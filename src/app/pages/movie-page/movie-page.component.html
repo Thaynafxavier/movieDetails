@@ -3,11 +3,13 @@
     <img src="../../../assets/images/logo.tmdb.png" alt="Logotipo" />
   </div>
 </header>
+
 <div class="background">
   <div class="film-container">
     <div class="film-cover">
       <img src="../../../assets/images/filme-topo.png" alt="film-cover" />
     </div>
+
     <div class="film-title">
       <h1>Deadpool (2016)</h1>
       <h2>
@@ -17,8 +19,8 @@
       <div class="user-rating">
         <circle-progress
           [percent]="80"
-          [radius]="19"
-          [outerStrokeWidth]="4"
+          [radius]="28"
+          [outerStrokeWidth]="6"
           [innerStrokeWidth]="4"
           [outerStrokeColor]="'#14FF00'"
           [innerStrokeColor]="' #rgba'"
@@ -26,8 +28,8 @@
           [animationDuration]="300"
           [titleColor]="'#14FF00'"
           [subtitleColor]="'#14FF00'"
-          [titleFontSize]="'10px'"
-          [subtitleFontSize]="'6px'"
+          [titleFontSize]="'15px'"
+          [subtitleFontSize]="'10px'"
         >
         </circle-progress>
       </div>
@@ -75,6 +77,154 @@
               <p>nome</p>
               <h3>Roteiro</h3>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="background-secondary">
+  <div class="film-carousel">
+    <h4>Elenco original</h4>
+    <div #carouselWrapper class="carousel-wrapper">
+      <div class="carousel">
+        <div class="carousel-item">
+          <img src="../../../assets/images/image-teste.png" alt="Imagem 1" />
+          <div class="carousel-content">
+            <h5 class="carousel-title">Ryan Reynolds</h5>
+            <p class="carousel-subtitle">Wade Wilson / Deadpool</p>
+          </div>
+        </div>
+
+        <div class="carousel-item">
+          <img src="../../../assets/images/image-teste.png" alt="Imagem 6" />
+          <div class="carousel-content">
+            <h5 class="carousel-title">Brianna Hildebrand</h5>
+            <p class="carousel-subtitle">Negasonic Teenage Warhead</p>
+          </div>
+        </div>
+
+        <div class="carousel-item">
+          <img src="../../../assets/images/image-teste.png" alt="Imagem 6" />
+          <div class="carousel-content">
+            <h5 class="carousel-title">Brianna Hildebrand</h5>
+            <p class="carousel-subtitle">Negasonic Teenage Warhead</p>
+          </div>
+        </div>
+
+        <div class="carousel-item">
+          <img src="../../../assets/images/image-teste.png" alt="Imagem 6" />
+          <div class="carousel-content">
+            <h5 class="carousel-title">Brianna Hildebrand</h5>
+            <p class="carousel-subtitle">Negasonic Teenage Warhead</p>
+          </div>
+        </div>
+
+        <div class="carousel-item">
+          <img src="../../../assets/images/image-teste.png" alt="Imagem 6" />
+          <div class="carousel-content">
+            <h5 class="carousel-title">Brianna Hildebrand</h5>
+            <p class="carousel-subtitle">Negasonic Teenage Warhead</p>
+          </div>
+        </div>
+
+        <div class="carousel-item">
+          <img src="../../../assets/images/image-teste.png" alt="Imagem 7" />
+          <div class="carousel-content">
+            <h5 class="carousel-title">Stefan Kapicic</h5>
+            <p class="carousel-subtitle">Colossus (voice)</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="../../../assets/images/image-teste.png" alt="Imagem 7" />
+          <div class="carousel-content">
+            <h5 class="carousel-title">Stefan Kapicic</h5>
+            <p class="carousel-subtitle">Colossus (voice)</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="../../../assets/images/image-teste.png" alt="Imagem 7" />
+          <div class="carousel-content">
+            <h5 class="carousel-title">Stefan Kapicic</h5>
+            <p class="carousel-subtitle">Colossus (voice)</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="../../../assets/images/image-teste.png" alt="Imagem 7" />
+          <div class="carousel-content">
+            <h5 class="carousel-title">Stefan Kapicic</h5>
+            <p class="carousel-subtitle">Colossus (voice)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section-trailer">
+    <h5>Trailer</h5>
+    <div class="video-wrapper">
+      <iframe
+        width="907"
+        height="510"
+        src="https://www.youtube.com/embed/JjnzxHdZtYY"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      >
+      </iframe>
+    </div>
+
+    <div class="section-recommendations">
+      <h6>Recomendações</h6>
+      <div class="recommendations-carousel">
+        <div class="recommendation-item">
+          <img
+            src="../../../assets/images/image-teste-recomendacoes.png"
+            alt="Imagem 1"
+          />
+          <div class="recommendation-content">
+            <h5 class="recommendation-title">Título 1</h5>
+            <p class="recommendation-subtitle">Subtítulo 1</p>
+          </div>
+        </div>
+        <div class="recommendation-item">
+          <img
+            src="../../../assets/images/image-teste-recomendacoes.png"
+            alt="Imagem 2"
+          />
+          <div class="recommendation-content">
+            <h5 class="recommendation-title">Título 2</h5>
+            <p class="recommendation-subtitle">Subtítulo 2</p>
+          </div>
+        </div>
+        <div class="recommendation-item">
+          <img
+            src="../../../assets/images/image-teste-recomendacoes.png"
+            alt="Imagem 3"
+          />
+          <div class="recommendation-content">
+            <h5 class="recommendation-title">Título 3</h5>
+            <p class="recommendation-subtitle">Subtítulo 3</p>
+          </div>
+        </div>
+        <div class="recommendation-item">
+          <img
+            src="../../../assets/images/image-teste-recomendacoes.png"
+            alt="Imagem 4"
+          />
+          <div class="recommendation-content">
+            <h5 class="recommendation-title">Título 4</h5>
+            <p class="recommendation-subtitle">Subtítulo 4</p>
+          </div>
+        </div>
+        <div class="recommendation-item">
+          <img
+            src="../../../assets/images/image-teste-recomendacoes.png"
+            alt="Imagem 5"
+          />
+          <div class="recommendation-content">
+            <h5 class="recommendation-title">Título 5</h5>
+            <p class="recommendation-subtitle">Subtítulo 5</p>
           </div>
         </div>
       </div>
