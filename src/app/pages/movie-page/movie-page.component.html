@@ -7,11 +7,11 @@
 <div class="background">
   <div class="film-container">
     <div class="film-cover">
-      <img src="../../../assets/images/filme-topo.png" alt="film-cover" />
+      <img [src]="getPosterUrl()" alt="film-cover" />
     </div>
 
     <div class="film-title">
-      <h1>Deadpool (2016)</h1>
+      <h1>{{ movie?.original_title || 'Título não disponível' }}</h1>
       <h2>
         16 anos • 11/02/2016 (BR) • Ação, Aventura, Comédia, Ficção científica •
         1h 47m

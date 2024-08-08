@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, ModuleWithProviders, OnInit, ViewChild } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { Component, ModuleWithProviders, OnInit } from '@angular/core';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { MovieResponse } from '../../typings/movie-response';
+import { MovieService } from '../../services/movie-service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-movie-page',
@@ -23,13 +25,35 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
   templateUrl: './movie-page.component.html',
   styleUrl: './movie-page.component.scss'
 })
-export class MoviePageComponent  {
 
-  images: string[] = [
-    'path/to/image1.jpg',
-    'path/to/image2.jpg',
-    'path/to/image3.jpg'
-    // Adicione mais caminhos de imagens conforme necessário
-  ];
+  export class MoviePageComponent implements OnInit {
+    movie: MovieResponse | null = null;
 
-}
+    constructor(
+      private movieService: MovieService,
+      private route: ActivatedRoute 
+    ) {}
+
+    ngOnInit(): void {
+      this.route.paramMap.subscribe(params => {
+        const movieId = params.get('movieId');
+        console.log(params.keys)
+        if (movieId) {
+          this.movieService.getMovieDetails(Number(movieId)).subscribe(
+            (data) => {
+              this.movie = data;
+              console.log('Movie details:', this.movie);
+            },
+            (error) => {
+              console.error('Erro ao obter detalhes do filme', error);
+            }
+          );
+        }
+      });
+    }
+
+    getPosterUrl(): string {
+      const baseUrl = 'https://image.tmdb.org/t/p/original';
+      return this.movie ? `${baseUrl}${this.movie.poster_path}` : '';
+    }
+  }
