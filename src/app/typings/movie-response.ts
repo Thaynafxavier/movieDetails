@@ -157,3 +157,14 @@ export interface TranslationData {
   tagline: string;
   title: string;
 }
+export interface Video {
+  key: string;
+  site: string;
+  type: string;
+  official: boolean;
+}
+
+export interface VideosResponse {
+  id: number;
+  results: Video[];
+}
