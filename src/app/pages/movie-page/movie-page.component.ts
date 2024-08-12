@@ -1,9 +1,10 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component, ModuleWithProviders, OnInit } from '@angular/core';
 import { NgCircleProgressModule } from 'ng-circle-progress';
-import { ApiResponse, CastMember, CreditsResponse, CrewMember, Genre, MovieResponse, ReleaseInfo, Translation, TranslationData } from '../../typings/movie-response';
+import { ApiResponse, CastMember, CreditsResponse, CrewMember, Genre, MovieResponse, ReleaseInfo, Translation, TranslationData, VideosResponse } from '../../typings/movie-response';
 import { MovieService } from '../../services/movie-service';
 import { ActivatedRoute } from '@angular/router';
+import { SafeUrlPipe } from '../../pipes/safe-url.pipe';
 
 
 const genreTranslations: { [key: string]: string } = {
@@ -24,7 +25,7 @@ const genreTranslations: { [key: string]: string } = {
 @Component({
   selector: 'app-movie-page',
   standalone: true,
-  imports: [ NgCircleProgressModule,    CommonModule
+  imports: [ NgCircleProgressModule,    CommonModule, SafeUrlPipe
  ],
  providers: [ DatePipe,
   (NgCircleProgressModule.forRoot({
@@ -53,6 +54,9 @@ export class MoviePageComponent implements OnInit {
   cast: CastMember[] = [];
   selectedLanguage: string = 'pt';
   translations: TranslationData | null = null;
+  trailerUrl: string = '';
+  hasTrailer: boolean = false;
+  noTrailerImageUrl: string = 'assets/images/video-indisponivel-image.png';
 
   constructor(
     private movieService: MovieService,
@@ -104,11 +108,28 @@ export class MoviePageComponent implements OnInit {
           }
         );
 
+        this.movieService.getMovieVideos(Number(movieId)).subscribe(
+          (response: VideosResponse) => {
+            const trailer = response.results.find(video => video.type === 'Trailer' && video.site === 'YouTube' && video.official);
+            if (trailer) {
+              this.trailerUrl = `https://www.youtube.com/embed/${trailer.key}`;
+              this.hasTrailer = true;
+            } else {
+              this.hasTrailer = false;
+            }
+          },
+          (error) => {
+            console.error('Erro ao obter os vídeos do filme', error);
+            this.hasTrailer = false;
+          }
+        );
 
         this.loadTranslations(Number(movieId));
       }
     });
   }
+
+
 
   loadTranslations(movieId: number): void {
     this.movieService.getMovieTranslations(movieId).subscribe(
@@ -146,7 +167,7 @@ export class MoviePageComponent implements OnInit {
 
   getActorImageUrl(profilePath: string | null): string {
     const baseUrl = 'https://image.tmdb.org/t/p/w200';
-    const defaultImageUrl = 'assets/images/question-image.png'; // Caminho para a imagem padrão
+    const defaultImageUrl = 'assets/images/question-image.png';
     return profilePath ? `${baseUrl}${profilePath}` : defaultImageUrl;
   }
 
