@@ -13,69 +13,61 @@
     <div class="film-title">
       <h1>{{ movie?.original_title || 'Título não disponível' }}</h1>
       <h2>
-        16 anos • 11/02/2016 (BR) • Ação, Aventura, Comédia, Ficção científica •
-        1h 47m
+        {{ classification }} Anos • {{ releaseDate }} ({{ country }}) •
+        {{ formatGenres(movie?.genres) }} • {{ formatRuntime(movie?.runtime) }}
       </h2>
       <div class="user-rating">
         <circle-progress
-          [percent]="80"
-          [radius]="28"
-          [outerStrokeWidth]="6"
-          [innerStrokeWidth]="4"
-          [outerStrokeColor]="'#14FF00'"
-          [innerStrokeColor]="' #rgba'"
-          [animation]="true"
-          [animationDuration]="300"
-          [titleColor]="'#14FF00'"
-          [subtitleColor]="'#14FF00'"
-          [titleFontSize]="'15px'"
-          [subtitleFontSize]="'10px'"
-        >
-        </circle-progress>
+        [percent]="(movie?.vote_average ?? 0) * 10"
+        [radius]="28"
+        [outerStrokeWidth]="6"
+        [innerStrokeWidth]="4"
+        [outerStrokeColor]="'#14FF00'"
+        [innerStrokeColor]="'#transparent'"
+        [animation]="true"
+        [animationDuration]="300"
+        [titleColor]="'#14FF00'"
+        [subtitleColor]="'#14FF00'"
+        [titleFontSize]="'15px'"
+        [subtitleFontSize]="'10px'"
+      >
+      </circle-progress>
       </div>
       <div class="rating-text">
         <p>Avaliação dos usuários</p>
       </div>
       <div class="synopsis">
         <h2>Sinopse</h2>
-        <p>
-          Baseado no anti-herói não convencional da Marvel Comics, Deadpool
-          conta a história da origem do ex-agente das Forças Especiais que se
-          tornou o mercenário Wade Wilson. Depois de ser submetido a um
-          desonesto experimento que o deixa com poderes de cura acelerada, Wade
-          adota o alter ego de Deadpool. Armado com suas novas habilidades e um
-          senso de humor negro e distorcido, Deadpool persegue o homem que quase
-          destruiu sua vida.
-        </p>
+        <p>{{ getOverview() }}</p>
       </div>
       <div class="subtitles-container">
         <div class="subtitles-row top-row">
           <div class="item">
-            <p>nome</p>
-            <h3>Personagens</h3>
+            <p *ngIf="cast[0]?.name">{{ cast[0]?.name }}</p>
+            <h3 *ngIf="cast[0]?.name">Personagens</h3>
           </div>
           <div class="subtitles-row top-row-two">
             <div class="item">
-              <p>nome</p>
-              <h3>Personagens</h3>
+              <p *ngIf="cast[1]?.name">{{ cast[1]?.name }}</p>
+              <h3 *ngIf="cast[1]?.name">Personagens</h3>
             </div>
           </div>
           <div class="subtitles-row top-row-three">
             <div class="item">
-              <p>nome</p>
-              <h3>Diretor</h3>
+              <p *ngIf="directors">{{ directors }}</p> 
+      <h3 *ngIf="directors">Diretor</h3>
             </div>
           </div>
         </div>
         <div class="subtitles-row bottom-row">
           <div class="item">
-            <p>nome</p>
-            <h3>Roteiro</h3>
+            <p *ngIf="writers[0]">{{ writers[0] }}</p>
+            <h3 *ngIf="writers[0]">Roteiro</h3>
           </div>
           <div class="subtitles-row bottom-row-two">
             <div class="item">
-              <p>nome</p>
-              <h3>Roteiro</h3>
+              <p *ngIf="writers[1]">{{ writers[1] }}</p>
+            <h3 *ngIf="writers[1]">Roteiro</h3>
             </div>
           </div>
         </div>
