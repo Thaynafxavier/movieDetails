@@ -54,7 +54,7 @@
           </div>
           <div class="subtitles-row top-row-three">
             <div class="item">
-              <p *ngIf="directors">{{ directors }}</p> 
+              <p *ngIf="directors">{{ directors }}</p>
       <h3 *ngIf="directors">Diretor</h3>
             </div>
           </div>
@@ -81,77 +81,17 @@
     <h4>Elenco original</h4>
     <div #carouselWrapper class="carousel-wrapper">
       <div class="carousel">
-        <div class="carousel-item">
-          <img src="../../../assets/images/image-teste.png" alt="Imagem 1" />
+        <div class="carousel-item" *ngFor="let actor of cast">
+          <img [src]="getActorImageUrl(actor.profile_path)" alt="{{ actor.name }}" />
           <div class="carousel-content">
-            <h5 class="carousel-title">Ryan Reynolds</h5>
-            <p class="carousel-subtitle">Wade Wilson / Deadpool</p>
-          </div>
-        </div>
-
-        <div class="carousel-item">
-          <img src="../../../assets/images/image-teste.png" alt="Imagem 6" />
-          <div class="carousel-content">
-            <h5 class="carousel-title">Brianna Hildebrand</h5>
-            <p class="carousel-subtitle">Negasonic Teenage Warhead</p>
-          </div>
-        </div>
-
-        <div class="carousel-item">
-          <img src="../../../assets/images/image-teste.png" alt="Imagem 6" />
-          <div class="carousel-content">
-            <h5 class="carousel-title">Brianna Hildebrand</h5>
-            <p class="carousel-subtitle">Negasonic Teenage Warhead</p>
-          </div>
-        </div>
-
-        <div class="carousel-item">
-          <img src="../../../assets/images/image-teste.png" alt="Imagem 6" />
-          <div class="carousel-content">
-            <h5 class="carousel-title">Brianna Hildebrand</h5>
-            <p class="carousel-subtitle">Negasonic Teenage Warhead</p>
-          </div>
-        </div>
-
-        <div class="carousel-item">
-          <img src="../../../assets/images/image-teste.png" alt="Imagem 6" />
-          <div class="carousel-content">
-            <h5 class="carousel-title">Brianna Hildebrand</h5>
-            <p class="carousel-subtitle">Negasonic Teenage Warhead</p>
-          </div>
-        </div>
-
-        <div class="carousel-item">
-          <img src="../../../assets/images/image-teste.png" alt="Imagem 7" />
-          <div class="carousel-content">
-            <h5 class="carousel-title">Stefan Kapicic</h5>
-            <p class="carousel-subtitle">Colossus (voice)</p>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <img src="../../../assets/images/image-teste.png" alt="Imagem 7" />
-          <div class="carousel-content">
-            <h5 class="carousel-title">Stefan Kapicic</h5>
-            <p class="carousel-subtitle">Colossus (voice)</p>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <img src="../../../assets/images/image-teste.png" alt="Imagem 7" />
-          <div class="carousel-content">
-            <h5 class="carousel-title">Stefan Kapicic</h5>
-            <p class="carousel-subtitle">Colossus (voice)</p>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <img src="../../../assets/images/image-teste.png" alt="Imagem 7" />
-          <div class="carousel-content">
-            <h5 class="carousel-title">Stefan Kapicic</h5>
-            <p class="carousel-subtitle">Colossus (voice)</p>
+            <h5 class="carousel-title">{{ actor.name }}</h5>
+            <p class="carousel-subtitle">{{ actor.character }}</p>
           </div>
         </div>
       </div>
     </div>
   </div>
+
   <div class="section-trailer">
     <h5>Trailer</h5>
     <div class="video-wrapper">

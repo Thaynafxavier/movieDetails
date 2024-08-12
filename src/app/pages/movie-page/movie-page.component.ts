@@ -19,10 +19,6 @@ const genreTranslations: { [key: string]: string } = {
   Thriller: 'Suspense',
 };
 
-const overviewTranslations: { [key: string]: string } = {
-  "This is the movie overview.": "Esta é a sinopse do filme.",
-
-};
 
 
 @Component({
@@ -68,6 +64,7 @@ export class MoviePageComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       const movieId = params.get('movieId');
       if (movieId) {
+
         this.movieService.getMovieDetails(Number(movieId)).subscribe(
           (data: MovieResponse) => {
             this.movie = data;
@@ -78,15 +75,17 @@ export class MoviePageComponent implements OnInit {
           }
         );
 
+
         this.movieService.getMovieCredits(Number(movieId)).subscribe(
           (credits: CreditsResponse) => {
             this.extractRelevantNames(credits);
-            this.cast = credits.cast.slice(0, 2);
+            this.cast = credits.cast;
           },
           (error) => {
             console.error('Erro ao obter os créditos do filme', error);
           }
         );
+
 
         this.movieService.getReleaseDates(Number(movieId)).subscribe(
           (data: ApiResponse) => {
@@ -143,6 +142,12 @@ export class MoviePageComponent implements OnInit {
   getPosterUrl(): string {
     const baseUrl = 'https://image.tmdb.org/t/p/original';
     return this.movie ? `${baseUrl}${this.movie.poster_path}` : '';
+  }
+
+  getActorImageUrl(profilePath: string | null): string {
+    const baseUrl = 'https://image.tmdb.org/t/p/w200';
+    const defaultImageUrl = 'assets/images/question-image.png'; // Caminho para a imagem padrão
+    return profilePath ? `${baseUrl}${profilePath}` : defaultImageUrl;
   }
 
   formatDate(dateStr: string): string | null {

@@ -188,10 +188,9 @@ header {
     .carousel-wrapper {
       overflow-x: auto;
       white-space: nowrap;
-      width: 80%;
+      width: 90%;
       margin: 0 auto;
       padding: 10px 0;
-      transform: translateX(-5%);
 
       ::-webkit-scrollbar {
         height: 12px;
@@ -216,10 +215,10 @@ header {
     }
 
     .carousel {
-      display: inline-flex;
+      display: flex;
       gap: 10px;
-      justify-content: center;
-      width: 100%;
+      justify-content: flex-start;
+      width: max-content;
 
       .carousel-item {
         background-color: #ffffff;
@@ -231,32 +230,45 @@ header {
         flex-direction: column;
         align-items: center;
         justify-content: center;
-      }
-
-      img {
-        width: 175px;
-        height: 222px;
-        object-fit: cover;
+        overflow: hidden;
+        position: relative;
       }
 
       .carousel-content {
         text-align: center;
         margin-top: 10px;
+        width: 100%;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        overflow: hidden;
+      }
 
-        .carousel-title {
-          font-size: 16px;
-          color: $black-text;
-          margin-bottom: 5px;
-        }
+      .carousel-title {
+        font-size: 16px;
+        color: $black-text;
+        margin-bottom: 5px;
+      }
 
-        .carousel-subtitle {
-          font-size: 14px;
-          color: #666666;
-        }
+      .carousel-subtitle {
+        font-size: 14px;
+        color: #666666;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        white-space: normal;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-top: -1px;
+      }
+
+      .carousel-item img {
+        width: 175px;
+        height: 222px;
+        object-fit: cover;
       }
     }
   }
-
   .section-trailer {
     margin-left: 100px;
     margin-top: 20px;

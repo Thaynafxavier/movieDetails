@@ -67,7 +67,6 @@ export interface ReleaseDate {
   certification: string;
   release_date: string;
   type: number;
-  // Outras propriedades, caso existam
 }
 
 export interface ReleaseInfo {
@@ -100,13 +99,12 @@ export interface CastMember {
   name: string;
   original_name: string;
   popularity: number;
-  profile_path: string;
+  profile_path: string | null;
   cast_id: number;
   character: string;
   credit_id: string;
   order: number;
 }
-
 export interface CrewMember {
   adult: boolean;
   gender: number;
@@ -133,13 +131,11 @@ interface MovieTranslation {
   iso_639_1: string;
   data: {
     overview: string;
-    // outras propriedades
   };
 }
 
 export interface MovieResponse {
   translations?: MovieTranslation[];
-  // outras propriedades
 }
 export interface MovieTranslationsResponse {
   id: number;
