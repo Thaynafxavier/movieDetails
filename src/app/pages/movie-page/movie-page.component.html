@@ -11,7 +11,7 @@
     </div>
 
     <div class="film-title">
-      <h1>{{ movie?.original_title || "Título não disponível" }}</h1>
+      <h1>{{  getTitle() || "Título não disponível" }}</h1>
       <h2>
         {{ classification }} Anos • {{ releaseDate }} ({{ country }}) •
         {{ formatGenres(movie?.genres) }} • {{ formatRuntime(movie?.runtime) }}
@@ -119,54 +119,16 @@
   <div class="section-recommendations">
     <h6>Recomendações</h6>
     <div class="recommendations-carousel">
-      <div class="recommendation-item">
+      <div *ngFor="let recommendation of recommendations" class="recommendation-item">
         <img
-          src="../../../assets/images/image-teste-recomendacoes.png"
-          alt="Imagem 1"
+          [src]="getImageUrl(recommendation.backdrop_path)"
+          alt="{{ recommendation.title }}"
+          width="300"
+          height="450"
         />
         <div class="recommendation-content">
-          <h5 class="recommendation-title">Título 1</h5>
-          <p class="recommendation-subtitle">Subtítulo 1</p>
-        </div>
-      </div>
-      <div class="recommendation-item">
-        <img
-          src="../../../assets/images/image-teste-recomendacoes.png"
-          alt="Imagem 2"
-        />
-        <div class="recommendation-content">
-          <h5 class="recommendation-title">Título 2</h5>
-          <p class="recommendation-subtitle">Subtítulo 2</p>
-        </div>
-      </div>
-      <div class="recommendation-item">
-        <img
-          src="../../../assets/images/image-teste-recomendacoes.png"
-          alt="Imagem 3"
-        />
-        <div class="recommendation-content">
-          <h5 class="recommendation-title">Título 3</h5>
-          <p class="recommendation-subtitle">Subtítulo 3</p>
-        </div>
-      </div>
-      <div class="recommendation-item">
-        <img
-          src="../../../assets/images/image-teste-recomendacoes.png"
-          alt="Imagem 4"
-        />
-        <div class="recommendation-content">
-          <h5 class="recommendation-title">Título 4</h5>
-          <p class="recommendation-subtitle">Subtítulo 4</p>
-        </div>
-      </div>
-      <div class="recommendation-item">
-        <img
-          src="../../../assets/images/image-teste-recomendacoes.png"
-          alt="Imagem 5"
-        />
-        <div class="recommendation-content">
-          <h5 class="recommendation-title">Título 5</h5>
-          <p class="recommendation-subtitle">Subtítulo 5</p>
+          <h5 class="recommendation-title">{{ recommendation.title }}</h5>
+          <p class="recommendation-subtitle"> {{ recommendation.release_date | date: 'dd MMMM yyyy' }}</p>
         </div>
       </div>
     </div>

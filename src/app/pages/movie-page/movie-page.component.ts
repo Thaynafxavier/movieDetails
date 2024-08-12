@@ -1,7 +1,7 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component, ModuleWithProviders, OnInit } from '@angular/core';
 import { NgCircleProgressModule } from 'ng-circle-progress';
-import { ApiResponse, CastMember, CreditsResponse, CrewMember, Genre, MovieResponse, ReleaseInfo, Translation, TranslationData, VideosResponse } from '../../typings/movie-response';
+import { ApiResponse, CastMember, CreditsResponse, CrewMember, Genre, MovieResponse, Recommendation, RecommendationsResponse, ReleaseInfo, Translation, TranslationData, VideosResponse } from '../../typings/movie-response';
 import { MovieService } from '../../services/movie-service';
 import { ActivatedRoute } from '@angular/router';
 import { SafeUrlPipe } from '../../pipes/safe-url.pipe';
@@ -57,6 +57,7 @@ export class MoviePageComponent implements OnInit {
   trailerUrl: string = '';
   hasTrailer: boolean = false;
   noTrailerImageUrl: string = 'assets/images/video-indisponivel-image.png';
+  recommendations: Recommendation[] = []; // Array para armazenar as recomendações
 
   constructor(
     private movieService: MovieService,
@@ -124,6 +125,16 @@ export class MoviePageComponent implements OnInit {
           }
         );
 
+        this.movieService.getMovieRecommendations(Number(movieId)).subscribe(
+          (response: RecommendationsResponse) => {
+            this.recommendations = response.results.slice(0, 6); // Pegue apenas as 5 primeiras recomendações
+          },
+          (error) => {
+            console.error('Erro ao obter recomendações do filme', error);
+          }
+        );
+
+
         this.loadTranslations(Number(movieId));
       }
     });
@@ -143,6 +154,11 @@ export class MoviePageComponent implements OnInit {
       }
     );
   }
+
+  getTitle(): string {
+    return this.translations?.title || this.movie?.title || 'Título não disponível';
+  }
+
 
   getOverview(): string {
     return this.translations?.overview || this.movie?.overview || 'Descrição não disponível';
@@ -169,6 +185,10 @@ export class MoviePageComponent implements OnInit {
     const baseUrl = 'https://image.tmdb.org/t/p/w200';
     const defaultImageUrl = 'assets/images/question-image.png';
     return profilePath ? `${baseUrl}${profilePath}` : defaultImageUrl;
+  }
+
+  getImageUrl(path: string): string {
+    return `https://image.tmdb.org/t/p/w500${path}`; // URL base para imagens
   }
 
   formatDate(dateStr: string): string | null {
