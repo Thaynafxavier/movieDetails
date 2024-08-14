@@ -5,6 +5,7 @@ import { ApiResponse, CastMember, CreditsResponse, CrewMember, Genre, MovieRespo
 import { MovieService } from '../../services/movie-service';
 import { ActivatedRoute } from '@angular/router';
 import { SafeUrlPipe } from '../../pipes/safe-url.pipe';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 const genreTranslations: { [key: string]: string } = {
@@ -25,7 +26,7 @@ const genreTranslations: { [key: string]: string } = {
 @Component({
   selector: 'app-movie-page',
   standalone: true,
-  imports: [ NgCircleProgressModule,    CommonModule, SafeUrlPipe
+  imports: [ NgCircleProgressModule,    CommonModule, SafeUrlPipe, MatProgressSpinnerModule
  ],
  providers: [ DatePipe,
   (NgCircleProgressModule.forRoot({
@@ -59,6 +60,8 @@ export class MoviePageComponent implements OnInit {
   noTrailerImageUrl: string = 'assets/images/video-indisponivel-image.png';
   recommendations: Recommendation[] = []; // Array para armazenar as recomendações
 
+
+
   constructor(
     private movieService: MovieService,
     private route: ActivatedRoute,
@@ -69,78 +72,78 @@ export class MoviePageComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       const movieId = params.get('movieId');
       if (movieId) {
-
-        this.movieService.getMovieDetails(Number(movieId)).subscribe(
-          (data: MovieResponse) => {
-            this.movie = data;
-            console.log('Movie details:', this.movie);
-          },
-          (error) => {
-            console.error('Erro ao obter detalhes do filme', error);
-          }
-        );
-
-
-        this.movieService.getMovieCredits(Number(movieId)).subscribe(
-          (credits: CreditsResponse) => {
-            this.extractRelevantNames(credits);
-            this.cast = credits.cast;
-          },
-          (error) => {
-            console.error('Erro ao obter os créditos do filme', error);
-          }
-        );
-
-
-        this.movieService.getReleaseDates(Number(movieId)).subscribe(
-          (data: ApiResponse) => {
-            const countryData = data.results.find((item) => item.iso_3166_1 === 'BR');
-            if (countryData) {
-              const brReleaseDate = countryData.release_dates.find(date => date.type === 3);
-              if (brReleaseDate) {
-                this.classification = brReleaseDate.certification;
-                this.releaseDate = this.formatDate(brReleaseDate.release_date);
-                this.country = countryData.iso_3166_1;
-              }
-            }
-          },
-          (error) => {
-            console.error('Erro ao obter as datas de lançamento', error);
-          }
-        );
-
-        this.movieService.getMovieVideos(Number(movieId)).subscribe(
-          (response: VideosResponse) => {
-            const trailer = response.results.find(video => video.type === 'Trailer' && video.site === 'YouTube' && video.official);
-            if (trailer) {
-              this.trailerUrl = `https://www.youtube.com/embed/${trailer.key}`;
-              this.hasTrailer = true;
-            } else {
-              this.hasTrailer = false;
-            }
-          },
-          (error) => {
-            console.error('Erro ao obter os vídeos do filme', error);
-            this.hasTrailer = false;
-          }
-        );
-
-        this.movieService.getMovieRecommendations(Number(movieId)).subscribe(
-          (response: RecommendationsResponse) => {
-            this.recommendations = response.results.slice(0, 6); // Pegue apenas as 5 primeiras recomendações
-          },
-          (error) => {
-            console.error('Erro ao obter recomendações do filme', error);
-          }
-        );
-
-
-        this.loadTranslations(Number(movieId));
+        this.loadMovieDetails(Number(movieId));
       }
     });
   }
 
+  loadMovieDetails(movieId: number): void {
 
+
+    this.movieService.getMovieDetails(movieId).subscribe(
+      (data: MovieResponse) => {
+        this.movie = data;
+        console.log('Movie details:', this.movie);
+      },
+      (error) => {
+        console.error('Erro ao obter detalhes do filme', error);
+      }
+    );
+
+    this.movieService.getMovieCredits(movieId).subscribe(
+      (credits: CreditsResponse) => {
+        this.extractRelevantNames(credits);
+        this.cast = credits.cast;
+      },
+      (error) => {
+        console.error('Erro ao obter os créditos do filme', error);
+      }
+    );
+
+    this.movieService.getReleaseDates(movieId).subscribe(
+      (data: ApiResponse) => {
+        const countryData = data.results.find((item) => item.iso_3166_1 === 'BR');
+        if (countryData) {
+          const brReleaseDate = countryData.release_dates.find(date => date.type === 3);
+          if (brReleaseDate) {
+            this.classification = brReleaseDate.certification;
+            this.releaseDate = this.formatDate(brReleaseDate.release_date);
+            this.country = countryData.iso_3166_1;
+          }
+        }
+      },
+      (error) => {
+        console.error('Erro ao obter as datas de lançamento', error);
+      }
+    );
+
+    this.movieService.getMovieVideos(movieId).subscribe(
+      (response: VideosResponse) => {
+        const trailer = response.results.find(video => video.type === 'Trailer' && video.site === 'YouTube' && video.official);
+        if (trailer) {
+          this.trailerUrl = `https://www.youtube.com/embed/${trailer.key}`;
+          this.hasTrailer = true;
+        } else {
+          this.hasTrailer = false;
+        }
+      },
+      (error) => {
+        console.error('Erro ao obter os vídeos do filme', error);
+        this.hasTrailer = false;
+      }
+    );
+
+    this.movieService.getMovieRecommendations(movieId).subscribe(
+      (response: RecommendationsResponse) => {
+        this.recommendations = response.results.slice(0, 6); // Pegue apenas as 6 primeiras recomendações
+      },
+      (error) => {
+        console.error('Erro ao obter recomendações do filme', error);
+      }
+    );
+
+    this.loadTranslations(movieId);
+  }
 
   loadTranslations(movieId: number): void {
     this.movieService.getMovieTranslations(movieId).subscribe(
@@ -148,9 +151,11 @@ export class MoviePageComponent implements OnInit {
         const translation = data.translations.find((t: Translation) => t.iso_639_1 === this.selectedLanguage);
         this.translations = translation ? translation.data : null;
         console.log('Translations:', this.translations);
+
       },
       (error) => {
         console.error('Erro ao obter traduções do filme', error);
+       
       }
     );
   }
@@ -158,7 +163,6 @@ export class MoviePageComponent implements OnInit {
   getTitle(): string {
     return this.translations?.title || this.movie?.title || 'Título não disponível';
   }
-
 
   getOverview(): string {
     return this.translations?.overview || this.movie?.overview || 'Descrição não disponível';
@@ -168,7 +172,7 @@ export class MoviePageComponent implements OnInit {
     this.writers = credits.crew
       .filter((member) => member.known_for_department === 'Writing')
       .map((member) => member.name)
-      .slice(0, 2);
+      .slice(0, 4);
 
     const director = credits.crew.find(
       (member) => member.known_for_department === 'Directing'
@@ -188,7 +192,7 @@ export class MoviePageComponent implements OnInit {
   }
 
   getImageUrl(path: string): string {
-    return `https://image.tmdb.org/t/p/w500${path}`; // URL base para imagens
+    return `https://image.tmdb.org/t/p/w500${path}`;
   }
 
   formatDate(dateStr: string): string | null {
