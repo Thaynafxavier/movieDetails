@@ -11,10 +11,24 @@
     </div>
 
     <div class="film-title">
-      <h1>{{  getTitle() || "Título não disponível" }}</h1>
+      <h1>{{ getTitle() || "Título não disponível" }}</h1>
       <h2>
-        {{ classification }} Anos • {{ releaseDate }} ({{ country }}) •
-        {{ formatGenres(movie?.genres) }} • {{ formatRuntime(movie?.runtime) }}
+        <ng-container *ngIf="classification; else noClassification">
+          {{ classification }} Anos
+        </ng-container>
+        <ng-template #noClassification></ng-template>
+
+        <ng-container *ngIf="releaseDate"> • {{ releaseDate }} </ng-container>
+
+        <ng-container *ngIf="country"> ({{ country }}) </ng-container>
+
+        <ng-container *ngIf="formatGenres(movie?.genres)">
+          • {{ formatGenres(movie?.genres) }}
+        </ng-container>
+
+        <ng-container *ngIf="formatRuntime(movie?.runtime)">
+          • {{ formatRuntime(movie?.runtime) }}
+        </ng-container>
       </h2>
       <div class="user-rating">
         <circle-progress
@@ -43,17 +57,22 @@
       <div class="subtitles-container">
         <div class="subtitles-row top-row">
           <div class="item">
-            <p *ngIf="cast[0]?.name">{{ cast[0]?.name }}</p>
-            <h3 *ngIf="cast[0]?.name">Personagens</h3>
+            <p *ngIf="writers[0]">{{ writers[0] }}</p>
+            <h3 *ngIf="writers[0]">Personagem</h3>
           </div>
           <div class="subtitles-row top-row-two">
             <div class="item">
-              <p *ngIf="cast[1]?.name">{{ cast[1]?.name }}</p>
-              <h3 *ngIf="cast[1]?.name">Personagens</h3>
+              <p *ngIf="writers[1]">{{ writers[1] }}</p>
+              <h3 *ngIf="writers[1]">Personagem</h3>
             </div>
           </div>
-          <div class="subtitles-row top-row-three">
-            <div class="item">
+          <div class="subtitles-row">
+            <div
+              class="item director"
+              [ngStyle]="{
+                'margin-left': writers.length === 0 ? '-560' : 'auto'
+              }"
+            >
               <p *ngIf="directors">{{ directors }}</p>
               <h3 *ngIf="directors">Diretor</h3>
             </div>
@@ -61,13 +80,13 @@
         </div>
         <div class="subtitles-row bottom-row">
           <div class="item">
-            <p *ngIf="writers[0]">{{ writers[0] }}</p>
-            <h3 *ngIf="writers[0]">Roteiro</h3>
+            <p *ngIf="writers[2]">{{ writers[2] }}</p>
+            <h3 *ngIf="writers[2]">Roteiro</h3>
           </div>
           <div class="subtitles-row bottom-row-two">
             <div class="item">
-              <p *ngIf="writers[1]">{{ writers[1] }}</p>
-              <h3 *ngIf="writers[1]">Roteiro</h3>
+              <p *ngIf="writers[3]">{{ writers[3] }}</p>
+              <h3 *ngIf="writers[3]">Roteiro</h3>
             </div>
           </div>
         </div>
@@ -78,7 +97,7 @@
 
 <div class="background-secondary">
   <div class="film-carousel">
-    <h4>Elenco original</h4>
+    <h4 *ngIf="cast && cast.length > 0">Elenco original</h4>
     <div #carouselWrapper class="carousel-wrapper">
       <div class="carousel">
         <div class="carousel-item" *ngFor="let actor of cast">
@@ -98,10 +117,9 @@
   <div class="section-trailer">
     <h5>Trailer</h5>
     <div class="video-wrapper">
-      <!-- Usando *ngIf para verificar se há um trailer -->
       <ng-container *ngIf="hasTrailer; else noTrailer">
         <iframe
-          [src]="(trailerUrl || '') | safeUrl"
+          [src]="trailerUrl || '' | safeUrl"
           width="907"
           height="510"
           frameborder="0"
@@ -109,9 +127,14 @@
           allowfullscreen
         ></iframe>
       </ng-container>
-      <!-- Imagem padrão quando não há trailer -->
+
       <ng-template #noTrailer>
-        <img [src]="noTrailerImageUrl" alt="Trailer não disponível" width="907" height="510">
+        <img
+          [src]="noTrailerImageUrl"
+          alt="Trailer não disponível"
+          width="907"
+          height="510"
+        />
       </ng-template>
     </div>
   </div>
@@ -119,7 +142,10 @@
   <div class="section-recommendations">
     <h6>Recomendações</h6>
     <div class="recommendations-carousel">
-      <div *ngFor="let recommendation of recommendations" class="recommendation-item">
+      <div
+        *ngFor="let recommendation of recommendations"
+        class="recommendation-item"
+      >
         <img
           [src]="getImageUrl(recommendation.backdrop_path)"
           alt="{{ recommendation.title }}"
@@ -128,8 +154,11 @@
         />
         <div class="recommendation-content">
           <h5 class="recommendation-title">{{ recommendation.title }}</h5>
-          <p class="recommendation-subtitle"> {{ recommendation.release_date | date: 'dd MMMM yyyy' }}</p>
+          <p class="recommendation-subtitle">
+            {{ recommendation.release_date | date : "dd MMMM yyyy" }}
+          </p>
         </div>
       </div>
     </div>
   </div>
+</div>
