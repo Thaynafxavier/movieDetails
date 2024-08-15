@@ -5,81 +5,63 @@ import {
   CreditsResponse,
   MovieResponse,
   MovieTranslationsResponse,
-
   RecommendationsResponse,
-
-  ReleaseInfo,
   VideosResponse,
 } from '../typings/movie-response';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MovieService {
-  private apiUrl = 'https://api.themoviedb.org/3/movie/';
+  private apiUrl = environment.apiUrl;
+  private authorizationToken = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkYjE2NTVjZTg4NWUwODI1Y2IwOWMxYTY4NGUwNDE4YSIsIm5iZiI6MTcyMjYwNzYxNy4yNDU4ODcsInN1YiI6IjY2YWNlNmY1OTg2OTU0NDE4YjI4YzYyMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.W3HvAYfw6iBonXTuk2bIcvucPzZz2VBb82zvK1Ipv3U';
 
   constructor(private http: HttpClient) {}
 
-  getMovieDetails(movieId: number): Observable<MovieResponse> {
-    const headers = new HttpHeaders({
-      Authorization:
-        'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkYjE2NTVjZTg4NWUwODI1Y2IwOWMxYTY4NGUwNDE4YSIsIm5iZiI6MTcyMjYwNzYxNy4yNDU4ODcsInN1YiI6IjY2YWNlNmY1OTg2OTU0NDE4YjI4YzYyMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.W3HvAYfw6iBonXTuk2bIcvucPzZz2VBb82zvK1Ipv3U',
+  private getHeaders(): HttpHeaders {
+    return new HttpHeaders({
+      Authorization: this.authorizationToken,
     });
+  }
 
+  getMovieDetails(movieId: number): Observable<MovieResponse> {
     return this.http.get<MovieResponse>(`${this.apiUrl}${movieId}`, {
-      headers,
+      headers: this.getHeaders(),
     });
   }
 
   getReleaseDates(movieId: number): Observable<ApiResponse> {
-    const headers = new HttpHeaders({
-      Authorization:
-        'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkYjE2NTVjZTg4NWUwODI1Y2IwOWMxYTY4NGUwNDE4YSIsIm5iZiI6MTcyMjYwNzYxNy4yNDU4ODcsInN1YiI6IjY2YWNlNmY1OTg2OTU0NDE4YjI4YzYyMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.W3HvAYfw6iBonXTuk2bIcvucPzZz2VBb82zvK1Ipv3U',
-    });
     return this.http.get<ApiResponse>(
       `${this.apiUrl}${movieId}/release_dates`,
-      { headers }
+      { headers: this.getHeaders() }
     );
   }
 
   getMovieCredits(movieId: number): Observable<CreditsResponse> {
-    const headers = new HttpHeaders({
-      Authorization:
-        'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkYjE2NTVjZTg4NWUwODI1Y2IwOWMxYTY4NGUwNDE4YSIsIm5iZiI6MTcyMjYwNzYxNy4yNDU4ODcsInN1YiI6IjY2YWNlNmY1OTg2OTU0NDE4YjI4YzYyMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.W3HvAYfw6iBonXTuk2bIcvucPzZz2VBb82zvK1Ipv3U',
-    });
     return this.http.get<CreditsResponse>(`${this.apiUrl}${movieId}/credits`, {
-      headers,
+      headers: this.getHeaders(),
     });
   }
 
   getMovieTranslations(movieId: number): Observable<MovieTranslationsResponse> {
-    const headers = new HttpHeaders({
-      Authorization:
-        'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkYjE2NTVjZTg4NWUwODI1Y2IwOWMxYTY4NGUwNDE4YSIsIm5iZiI6MTcyMjYwNzYxNy4yNDU4ODcsInN1YiI6IjY2YWNlNmY1OTg2OTU0NDE4YjI4YzYyMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.W3HvAYfw6iBonXTuk2bIcvucPzZz2VBb82zvK1Ipv3U',
-    });
-
     return this.http.get<MovieTranslationsResponse>(
       `${this.apiUrl}${movieId}/translations`,
-      { headers }
+      { headers: this.getHeaders() }
     );
   }
 
-
   getMovieVideos(movieId: number): Observable<VideosResponse> {
-    const headers = new HttpHeaders({
-      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkYjE2NTVjZTg4NWUwODI1Y2IwOWMxYTY4NGUwNDE4YSIsIm5iZiI6MTcyMjYwNzYxNy4yNDU4ODcsInN1YiI6IjY2YWNlNmY1OTg2OTU0NDE4YjI4YzYyMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.W3HvAYfw6iBonXTuk2bIcvucPzZz2VBb82zvK1Ipv3U',
+    return this.http.get<VideosResponse>(`${this.apiUrl}${movieId}/videos`, {
+      headers: this.getHeaders(),
     });
-
-    return this.http.get<VideosResponse>(`${this.apiUrl}${movieId}/videos`, { headers });
   }
 
   getMovieRecommendations(movieId: number): Observable<RecommendationsResponse> {
-    const headers = new HttpHeaders({
-      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkYjE2NTVjZTg4NWUwODI1Y2IwOWMxYTY4NGUwNDE4YSIsIm5iZiI6MTcyMjYwNzYxNy4yNDU4ODcsInN1YiI6IjY2YWNlNmY1OTg2OTU0NDE4YjI4YzYyMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.W3HvAYfw6iBonXTuk2bIcvucPzZz2VBb82zvK1Ipv3U',
-    });
-
-    return this.http.get<RecommendationsResponse>(`${this.apiUrl}${movieId}/recommendations`, { headers });
+    return this.http.get<RecommendationsResponse>(
+      `${this.apiUrl}${movieId}/recommendations`,
+      { headers: this.getHeaders() }
+    );
   }
 }
-

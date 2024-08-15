@@ -1,12 +1,25 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component, ModuleWithProviders, OnInit } from '@angular/core';
 import { NgCircleProgressModule } from 'ng-circle-progress';
-import { ApiResponse, CastMember, CreditsResponse, CrewMember, Genre, MovieResponse, Recommendation, RecommendationsResponse, ReleaseInfo, Translation, TranslationData, VideosResponse } from '../../typings/movie-response';
+import {
+  ApiResponse,
+  CastMember,
+  CreditsResponse,
+  CrewMember,
+  Genre,
+  MovieResponse,
+  Recommendation,
+  RecommendationsResponse,
+  ReleaseInfo,
+  Translation,
+  TranslationData,
+  VideosResponse,
+} from '../../typings/movie-response';
 import { MovieService } from '../../services/movie-service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SafeUrlPipe } from '../../pipes/safe-url.pipe';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
+import { LoadingService } from '../../services/loading-service';
 
 const genreTranslations: { [key: string]: string } = {
   Action: 'Ação',
@@ -19,32 +32,37 @@ const genreTranslations: { [key: string]: string } = {
   Horror: 'Terror',
   Romance: 'Romance',
   Thriller: 'Suspense',
+  Animation: 'Animação',
+  Mystery: 'Mistério',
+  Family: 'Família',
 };
-
-
 
 @Component({
   selector: 'app-movie-page',
   standalone: true,
-  imports: [ NgCircleProgressModule,    CommonModule, SafeUrlPipe, MatProgressSpinnerModule
- ],
- providers: [ DatePipe,
-  (NgCircleProgressModule.forRoot({
-    radius: 100,
-    outerStrokeWidth: 16,
-    innerStrokeWidth: 8,
-    outerStrokeColor: '#78C000',
-    innerStrokeColor: '#C7E596',
-    animationDuration: 300,
-
-  }) as ModuleWithProviders<NgCircleProgressModule>).providers!,
-],
+  imports: [
+    NgCircleProgressModule,
+    CommonModule,
+    SafeUrlPipe,
+    MatProgressSpinnerModule,
+  ],
+  providers: [
+    DatePipe,
+    (
+      NgCircleProgressModule.forRoot({
+        radius: 100,
+        outerStrokeWidth: 16,
+        innerStrokeWidth: 8,
+        outerStrokeColor: '#78C000',
+        innerStrokeColor: '#C7E596',
+        animationDuration: 300,
+      }) as ModuleWithProviders<NgCircleProgressModule>
+    ).providers!,
+  ],
 
   templateUrl: './movie-page.component.html',
-  styleUrl: './movie-page.component.scss'
-
+  styleUrl: './movie-page.component.scss',
 })
-
 export class MoviePageComponent implements OnInit {
   movie: MovieResponse | null = null;
   classification: string | null = null;
@@ -58,18 +76,18 @@ export class MoviePageComponent implements OnInit {
   trailerUrl: string = '';
   hasTrailer: boolean = false;
   noTrailerImageUrl: string = 'assets/images/video-indisponivel-image.png';
-  recommendations: Recommendation[] = []; // Array para armazenar as recomendações
-
-
+  recommendations: Recommendation[] = [];
 
   constructor(
     private movieService: MovieService,
     private route: ActivatedRoute,
-    private datePipe: DatePipe
+    private router: Router,
+    private datePipe: DatePipe,
+    private loadingService: LoadingService
   ) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params) => {
       const movieId = params.get('movieId');
       if (movieId) {
         this.loadMovieDetails(Number(movieId));
@@ -78,17 +96,20 @@ export class MoviePageComponent implements OnInit {
   }
 
   loadMovieDetails(movieId: number): void {
+    this.loadingService.show();
 
-
-    this.movieService.getMovieDetails(movieId).subscribe(
-      (data: MovieResponse) => {
-        this.movie = data;
-        console.log('Movie details:', this.movie);
+    this.movieService.getMovieDetails(movieId).subscribe({
+      next: (response) => {
+        this.movie = response;
+        this.loadingService.hide();
       },
-      (error) => {
-        console.error('Erro ao obter detalhes do filme', error);
-      }
-    );
+      error: (err) => {
+        console.error('Erro ao obter detalhes do filme:', err);
+        this.loadingService.hide();
+
+        this.router.navigate(['/error']);
+      },
+    });
 
     this.movieService.getMovieCredits(movieId).subscribe(
       (credits: CreditsResponse) => {
@@ -102,9 +123,13 @@ export class MoviePageComponent implements OnInit {
 
     this.movieService.getReleaseDates(movieId).subscribe(
       (data: ApiResponse) => {
-        const countryData = data.results.find((item) => item.iso_3166_1 === 'BR');
+        const countryData = data.results.find(
+          (item) => item.iso_3166_1 === 'BR'
+        );
         if (countryData) {
-          const brReleaseDate = countryData.release_dates.find(date => date.type === 3);
+          const brReleaseDate = countryData.release_dates.find(
+            (date) => date.type === 3
+          );
           if (brReleaseDate) {
             this.classification = brReleaseDate.certification;
             this.releaseDate = this.formatDate(brReleaseDate.release_date);
@@ -119,7 +144,12 @@ export class MoviePageComponent implements OnInit {
 
     this.movieService.getMovieVideos(movieId).subscribe(
       (response: VideosResponse) => {
-        const trailer = response.results.find(video => video.type === 'Trailer' && video.site === 'YouTube' && video.official);
+        const trailer = response.results.find(
+          (video) =>
+            video.type === 'Trailer' &&
+            video.site === 'YouTube' &&
+            video.official
+        );
         if (trailer) {
           this.trailerUrl = `https://www.youtube.com/embed/${trailer.key}`;
           this.hasTrailer = true;
@@ -135,7 +165,7 @@ export class MoviePageComponent implements OnInit {
 
     this.movieService.getMovieRecommendations(movieId).subscribe(
       (response: RecommendationsResponse) => {
-        this.recommendations = response.results.slice(0, 6); // Pegue apenas as 6 primeiras recomendações
+        this.recommendations = response.results.slice(0, 6);
       },
       (error) => {
         console.error('Erro ao obter recomendações do filme', error);
@@ -148,24 +178,30 @@ export class MoviePageComponent implements OnInit {
   loadTranslations(movieId: number): void {
     this.movieService.getMovieTranslations(movieId).subscribe(
       (data) => {
-        const translation = data.translations.find((t: Translation) => t.iso_639_1 === this.selectedLanguage);
+        const translation = data.translations.find(
+          (t: Translation) => t.iso_639_1 === this.selectedLanguage
+        );
         this.translations = translation ? translation.data : null;
         console.log('Translations:', this.translations);
-
       },
       (error) => {
         console.error('Erro ao obter traduções do filme', error);
-       
       }
     );
   }
 
   getTitle(): string {
-    return this.translations?.title || this.movie?.title || 'Título não disponível';
+    return (
+      this.translations?.title || this.movie?.title || 'Título não disponível'
+    );
   }
 
   getOverview(): string {
-    return this.translations?.overview || this.movie?.overview || 'Descrição não disponível';
+    return (
+      this.translations?.overview ||
+      this.movie?.overview ||
+      'Descrição não disponível'
+    );
   }
 
   extractRelevantNames(credits: CreditsResponse): void {
@@ -182,8 +218,10 @@ export class MoviePageComponent implements OnInit {
 
   getPosterUrl(): string {
     const baseUrl = 'https://image.tmdb.org/t/p/original';
-    return this.movie ? `${baseUrl}${this.movie.poster_path}` : '';
+    const defaultImageUrl = 'assets/images/question-image.png'; // Caminho para a imagem padrão
+    return this.movie && this.movie.poster_path ? `${baseUrl}${this.movie.poster_path}` : defaultImageUrl;
   }
+
 
   getActorImageUrl(profilePath: string | null): string {
     const baseUrl = 'https://image.tmdb.org/t/p/w200';
@@ -191,9 +229,13 @@ export class MoviePageComponent implements OnInit {
     return profilePath ? `${baseUrl}${profilePath}` : defaultImageUrl;
   }
 
-  getImageUrl(path: string): string {
-    return `https://image.tmdb.org/t/p/w500${path}`;
-  }
+
+
+getImageUrl(path: string | null): string {
+  const baseUrl = 'https://image.tmdb.org/t/p/w500';
+  const defaultImageUrl = 'assets/images/question-image.png'; // Caminho para a imagem padrão
+  return path ? `${baseUrl}${path}` : defaultImageUrl;
+}
 
   formatDate(dateStr: string): string | null {
     const date = new Date(dateStr);
@@ -203,7 +245,7 @@ export class MoviePageComponent implements OnInit {
   formatGenres(genres: Genre[] | undefined): string {
     if (!genres) return '';
     return genres
-      .map(genre => genreTranslations[genre.name] || genre.name)
+      .map((genre) => genreTranslations[genre.name] || genre.name)
       .join(', ');
   }
 
