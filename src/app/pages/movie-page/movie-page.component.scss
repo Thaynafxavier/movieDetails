@@ -63,6 +63,13 @@ header {
   font-weight: normal;
 }
 
+
+circle-progress svg text {
+  dominant-baseline: middle; /* Alinha verticalmente o texto no meio */
+  text-anchor: middle; /* Alinha horizontalmente o texto no centro */
+}
+
+
 .user-rating {
   width: 50px;
   height: 80px;
@@ -76,8 +83,8 @@ header {
 
   padding: 2px;
   border-radius: 80%;
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   margin-top: 30px;
   margin-left: 1px;
 }
@@ -613,6 +620,7 @@ header {
     display: flex !important;
     flex-wrap: wrap;
     gap: 25px !important;
+    margin-left: -80px;
 
     .recommendation-item {
       width: calc(50% - 20px);
@@ -627,9 +635,20 @@ header {
     }
   }
 
+
+  .section-trailer {
+    .video-wrapper {
+      img {
+        width: 324px;
+        margin-left: 271px;
+        height: 182px;
+      }
+    }
+  }
+
   .background-secondary[_ngcontent-ng-c4150485114]
     .section-recommendations[_ngcontent-ng-c4150485114] {
-    margin-left: 27px;
+    margin-left: -300px !important;
     margin-top: 20px;
     font-size: 35px;
     color: #131313;
@@ -637,7 +656,7 @@ header {
 
   h6 {
     font-size: 22px;
-    margin-left: 5px;
+    margin-left: -60px;
     margin-top: 50px;
   }
 }
