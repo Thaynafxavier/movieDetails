@@ -32,22 +32,21 @@
       </h2>
       <div class="user-rating">
         <circle-progress
-        [percent]="(movie?.vote_average ?? 0) * 10"
-        [radius]="80"
-        [outerStrokeWidth]="20"
-        [innerStrokeWidth]="10"
-        [outerStrokeColor]="'#14FF00'"
-        [innerStrokeColor]="'transparent'"
-        [animation]="true"
-        [animationDuration]="300"
-        [titleColor]="'#14FF00'"
-        [titleFontSize]="'60px'"
-
-        [showSubtitle]="false"
-        [responsive]="true"
-        [showTitle]="true"
-      >
-      </circle-progress>
+          [percent]="(movie?.vote_average ?? 0) * 10"
+          [radius]="80"
+          [outerStrokeWidth]="20"
+          [innerStrokeWidth]="10"
+          [outerStrokeColor]="'#14FF00'"
+          [innerStrokeColor]="'transparent'"
+          [animation]="true"
+          [animationDuration]="300"
+          [titleColor]="'#14FF00'"
+          [titleFontSize]="'60px'"
+          [showSubtitle]="false"
+          [responsive]="true"
+          [showTitle]="true"
+        >
+        </circle-progress>
       </div>
       <div class="rating-text">
         <p>Avaliação dos usuários</p>
