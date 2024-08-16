@@ -218,10 +218,11 @@ export class MoviePageComponent implements OnInit {
 
   getPosterUrl(): string {
     const baseUrl = 'https://image.tmdb.org/t/p/original';
-    const defaultImageUrl = 'assets/images/question-image.png'; // Caminho para a imagem padrão
-    return this.movie && this.movie.poster_path ? `${baseUrl}${this.movie.poster_path}` : defaultImageUrl;
+    const defaultImageUrl = 'assets/images/question-image.png';
+    return this.movie && this.movie.poster_path
+      ? `${baseUrl}${this.movie.poster_path}`
+      : defaultImageUrl;
   }
-
 
   getActorImageUrl(profilePath: string | null): string {
     const baseUrl = 'https://image.tmdb.org/t/p/w200';
@@ -229,13 +230,11 @@ export class MoviePageComponent implements OnInit {
     return profilePath ? `${baseUrl}${profilePath}` : defaultImageUrl;
   }
 
-
-
-getImageUrl(path: string | null): string {
-  const baseUrl = 'https://image.tmdb.org/t/p/w500';
-  const defaultImageUrl = 'assets/images/question-image.png'; // Caminho para a imagem padrão
-  return path ? `${baseUrl}${path}` : defaultImageUrl;
-}
+  getImageUrl(path: string | null): string {
+    const baseUrl = 'https://image.tmdb.org/t/p/w500';
+    const defaultImageUrl = 'assets/images/question-image.png';
+    return path ? `${baseUrl}${path}` : defaultImageUrl;
+  }
 
   formatDate(dateStr: string): string | null {
     const date = new Date(dateStr);

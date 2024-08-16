@@ -65,8 +65,8 @@ header {
 
 
 circle-progress svg text {
-  dominant-baseline: middle; /* Alinha verticalmente o texto no meio */
-  text-anchor: middle; /* Alinha horizontalmente o texto no centro */
+  dominant-baseline: middle;
+  text-anchor: middle;
 }
 
 
@@ -634,7 +634,6 @@ circle-progress svg text {
       }
     }
   }
-
 
   .section-trailer {
     .video-wrapper {
